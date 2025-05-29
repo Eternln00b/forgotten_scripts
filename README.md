@@ -6,11 +6,11 @@ In order to use my malware toolkit you have first to install the ASCIIexzor suit
 
 for backdooring purposes :
 ```bash
-ASCIIexzorShell -a <target arch> -h <host listener> -p <listen port ( 1337 - 50000 )> [optional args][-v <varname> -k <xor key>]
+ASCIIexzorShell -a <target arch> -h <host listener> -p <listen port ( 1337 - 50000 )> [opt args][-v <varname> -k <xor key>]
 ```
 for testing purposes : 
 ```bash
-ASCIIexzorShell-Test -a <target arch> [optional args][-v <varname> -k <xor key>]
+ASCIIexzorShell-Test -a <target arch> [opt args][-v <varname> -k <xor key>]
 ```
 
 ***note : the -k option is partially broken. It's possible to use a custom key but sometimes the backdoor doesn't work.***
