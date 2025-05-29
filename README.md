@@ -1,4 +1,4 @@
-# forgotten_scripts
+# forgotten scripts
 
 This backdoor is an old draft that I decided to share. Don't expect perfects results if you plan to us it "as it".
 
