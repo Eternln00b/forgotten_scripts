@@ -1,6 +1,6 @@
 # forgotten scripts
 
-This backdoor is an old draft that I decided to share. Don't expect perfects results if you plan to us it "as it".
+This backdoor is an old draft that I decided to share.
 
 In order to use my malware toolkit you have first to install the ASCIIexzor suit. Once it has been done, you can run two scripts.
 
@@ -13,11 +13,8 @@ for testing purposes :
 ASCIIexzorShell-Test -a <target arch> [opt][-v <varname> -k <xor key>]
 ```
 
-***note : the -k option is partially broken. It's possible to use a custom key but sometimes the backdoor doesn't work.***
+***note : the -k option is partially broken. although it's possible to use a custom key the backdoor could not work.***
 
 My youtube video ( in french ) should give a clue how to use my malware toolkit. 
 
-Of course, this draft is just for testing purpose. 
-If you are a kind of "white hat" or something like this, It should be enough.
-
-If on the contrary you are a real "hacker". You already know you can't rely on metasploit for evil activities but at least, my backdoor template should be a good starting :) 
+Of course, this draft is just for testing purpose. If you to plan to use it for a custom projet, you can still use my backdoor template but you will have to run your own rat. 
