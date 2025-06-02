@@ -6,7 +6,7 @@ XOR_Key=""
 
 usage() {
 
-    echo -en "\nUsage: $(basename "$0") -a <arch> [ -v <optional varname> -k <optional xor key> (broken for the moment...) ]\n"
+    echo -en "\nUsage: $(basename "$0") -a <target arch> [opt][-v <varname> -k <xor key>]\n"
     exit 1
 
 }

@@ -22,7 +22,7 @@ ssl_cert() {
 
 usage() {
 
-    echo -en "\nUsage: $(basename "$0") -a <victim arch> -h <hostname listener> -p <listener port ( ${fpos} - ${lpos} )> [ -v <optional varname> -k <optional xor key> (broken for the moment...) ]\n"
+    echo -en "\nUsage: $(basename "$0") -a <target arch> -h <host listener> -p <listen port : ${fpos} - ${lpos}> [opt][-v <varname> -k <xor key>]\n"
     exit 1
 
 }
