@@ -13,7 +13,7 @@ for testing purposes :
 ASCIIexzorShell-Test -a <target arch> [opt][-v <varname> -k <xor key>]
 ```
 
-***note : the -k option is partially broken. although it's possible to use a custom key the backdoor could not work.***
+***note : the -k option is partially broken. Although it's possible to use a custom key the backdoor could not work.***
 
 My [youtube video](https://www.youtube.com/watch?v=rSgrQAHQZIE) ( in french ) should give a clue how to use my malware toolkit. 
 
