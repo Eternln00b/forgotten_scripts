@@ -4,33 +4,36 @@
 #include <stddef.h>
 #include "shellcodefuncs.h"
 
-unsigned char* ascii_decode(const char *input, int length) {
+unsigned char* ascii_decode(const char *input){
 
-    int decoded_length = length / 4;
+    if (!input) return NULL;
+    size_t dlen = strlen((const char *)input);
+    unsigned char *output = malloc(dlen * 4 + 1);
 
-    unsigned char *output = (unsigned char *)malloc(decoded_length + 1);
     if (output == NULL) {
         fprintf(stderr, "Fuck.\n");
         exit(1);
     }
 
-    for (int i = 0; i < decoded_length; i++) {
+    for (size_t i = 0; i < dlen; i++) {
         sscanf(input + i * 4, "%3hhu ", &output[i]);
     }
+    output[dlen] = '\0';
 
-    output[decoded_length] = '\0';
     return output;
 
 }
 
-unsigned char* xor_decrypt(unsigned char *data, int data_len, char *key, int key_len) {
+void xor_decrypt(unsigned char *data, const char *key){
 
-    for (int i = 0; i < data_len; i++) {
+    if (!data || !key) return; 
+    unsigned int data_len = strlen((const char *)data);    
+    unsigned int key_len = strlen((const char *)key); 
+
+    for (unsigned int i = 0; i < data_len; i++) {
 
         data[i] ^= key[i % key_len];
 
     }
-
-    return data;
 
 }

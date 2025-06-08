@@ -4,10 +4,11 @@
 #include <unistd.h>
 #include "asciifunct.h"
 
-// Encode in ASCII
-char* ascii_encode(const unsigned char *input, int length) {
+char* ascii_encode(const unsigned char *input){
     
-    char *output = (char *)malloc(length * 4 + 1);
+    if (!input) return NULL;
+    size_t len = strlen((const char *)input);
+    char *output = malloc(len * 4 + 1);
     
     if (output == NULL) {
     
@@ -16,26 +17,26 @@ char* ascii_encode(const unsigned char *input, int length) {
     
     }
 
-    for (int i = 0; i < length; i++) {
+    for (unsigned int i = 0; i < len; i++) {
     
-        sprintf(output + i * 4, "%03d ", input[i]);
+        sprintf(output + i * 4, "%03d\x22", input[i]);
     
     }
-    output[length * 4] = '\0';
 
+    output[len * 4] = '\0';
     return output;
 
 }
 
-// XOR encrypting
-unsigned char* xor_encrypt(unsigned char *data, int data_len, char *key, int key_len){
+void xor_encrypt(unsigned char *data, const char *key){
 
-    for (int i = 0; i < data_len; i++) {
+    unsigned int data_len = strlen((const char *)data);    
+    unsigned int key_len = strlen((const char *)key); 
+
+    for (unsigned int i = 0; i < data_len; i++) {
 
         data[i] ^= key[i % key_len];
 
     }
-
-    return data;
 
 }

@@ -11,7 +11,6 @@ int main(int argc, char *argv[]) {
     int opt;
     char *plaintext = NULL;
     char *xor_key = "MySecretKey";
-    unsigned int key_length = strlen(xor_key);
 
     while ((opt = getopt(argc, argv, "s:x:")) != -1) {
     
@@ -29,7 +28,7 @@ int main(int argc, char *argv[]) {
             
             default:
     
-                fprintf(stderr, "\nUsage: %s -s <text to encrypt> [ ( optional ) -x <xor key> ]\n", argv[0]);
+                fprintf(stderr, "\nUsage: %s -s <text to encrypt> [opt][-x <xor key>]\n", argv[0]);
                 return 1;
     
         }
@@ -38,7 +37,7 @@ int main(int argc, char *argv[]) {
 
     if (plaintext == NULL) {
 
-        fprintf(stderr, "\nUsage: %s -s <text to encrypt> [ ( optional ) -x <xor key> ]\n", argv[0]);
+        fprintf(stderr, "\nUsage: %s -s <text to encrypt> [opt][-x <xor key>]\n", argv[0]);
         return 1;
 
     }
@@ -46,9 +45,9 @@ int main(int argc, char *argv[]) {
     printf("\nXOR key: %s\n", xor_key);
     printf("\nnon encrypted text: %s\n", plaintext);
 
-    char *plaintext_ascii = ascii_encode((const unsigned char *)plaintext, strlen(plaintext));
+    char *plaintext_ascii = ascii_encode((const unsigned char *)plaintext);
 
-    xor_encrypt((unsigned char *)plaintext_ascii, strlen(plaintext_ascii), xor_key, key_length);
+    xor_encrypt((unsigned char *)plaintext_ascii, xor_key);
     printf("\nencoded and encrypted text: %s\n", plaintext_ascii);
 
     if (access(txtRsl, F_OK) != -1) remove(txtRsl);
