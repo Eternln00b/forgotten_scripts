@@ -4,17 +4,17 @@ FLAGS = -s -Wall -Wextra -Wno-unused-parameter -Wno-unused-variable
 OPT_FLAG= -O2 -Ofast
 
 # src file
-SRC_FILE = bin/main.c bin/asciifunct.c
-BIN_NAME = bin/ASCIIexzor
+SRC_FILE = bin/main.c bin/textlamba.c
+BIN_NAME = bin/textioconv
 
 # bash scripts
-MAIN_SCRIPT = scripts/ASCIIexzorShell.sh
-TEST_SCRIPT = scripts/ASCIIexzorShell_Test.sh
+MAIN_SCRIPT = scripts/textioconvshell.sh
+TEST_SCRIPT = scripts/textioconvshell-Test.sh
 
 # installations path
-BIN_PATH = /usr/local/bin/ASCIIexzor
-MAIN_SCRIPT_PATH = /usr/local/games/ASCIIexzorShell
-TST_SCRIPT_PATH = /usr/local/games/ASCIIexzorShell-Test
+BIN_PATH = /usr/local/bin/textioconv
+MAIN_SCRIPT_PATH = /usr/local/games/textioconvshell
+TST_SCRIPT_PATH = /usr/local/games/textioconvshell-test
 
 # Default target
 all:
